@@ -14,3 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => 'auth'], function () {
+
+
+    Route::get('/mycvs', 'CVController@index');
+    Route::get('/mycvs/new', 'CVController@newCv');
+    Route::get('/mycvs/{id}/preview', 'CVController@viewCv');
+
+    Route::post('/mycvs', 'CVController@createCv');
+});
+

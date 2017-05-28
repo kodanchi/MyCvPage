@@ -48,10 +48,31 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'username' => 'required|unique:users|max:255',
+            'fname' => 'required|string|max:32',
+            'mname' => 'required|string|max:32',
+            'lname' => 'required|string|max:32',
             'email' => 'required|email|max:255|unique:users',
+            'birth_date' => 'required|date|before:'.date('2000-1-1'),
+            'phone' => 'numeric|min:500000000',
             'password' => 'required|min:6|confirmed',
-        ]);
+        ],[
+
+            ]
+            ,[
+                'username' => 'username',
+                'fname' => 'First Name',
+                'mname' => 'Middle Name',
+                'lname' => 'Last Name',
+                'email' => 'Email',
+                'birth_date' => 'Birth Date',
+                'phone' => 'Phone',
+                'twittr' => 'Twitter',
+                'facebook' => 'Facebook',
+                'linkedin' => 'LinkedIn',
+                'web_page' => 'Web Page',
+                'password' => 'Password',
+            ]);
     }
 
     /**
@@ -63,9 +84,19 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
+            'fname' => $data['fname'],
+            'mname' => $data['mname'],
+            'lname' => $data['lname'],
             'email' => $data['email'],
+            'birth_date' => $data['birth_date'],
+            'phone' => $data['phone'],
+            'twittr' => $data['twittr'],
+            'facebook' => $data['facebook'],
+            'linkedin' => $data['linkedin'],
+            'web_page' => $data['web_page'],
             'password' => bcrypt($data['password']),
+            'account_type' => 'lite',
         ]);
     }
 }
