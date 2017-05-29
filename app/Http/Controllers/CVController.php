@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cvs;
 use App\Themes;
+use App\Skills;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,10 +24,15 @@ class CVController extends Controller
         //dd($cv->theme_id);
         $theme = Themes::where('theme_id', $cv->theme_id)->get()[0];
         $userDet = Auth::user()->getUserDet();
-        $cvStory = DB::table('custom')->where('cv_id',$id)
+
+                $cvStory = DB::table('custom')->where('cv_id',$id)
             ->where('name','story');
         //dd($user);
-        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet'));
+
+        //* AHMED CHANGES *
+        $skills = Skills::where('cv_id', $cv->cv_id)->get();
+
+        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet','skills'));
     }
 
     public function newCv()

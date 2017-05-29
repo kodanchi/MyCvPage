@@ -1066,7 +1066,8 @@
 
 				<!-- #SKILLS CONTENT -->
 				<div class="main-block__padder">
-					
+
+
 					<!-- #SKILLS TABS -->
 					<ul class="nav nav-tabs text-uppercase small bold inline-block tabs-list wow fadeInUp" role="tablist">
 						<li role="presentation" class="active"><a href="#skill-panel-1" role="tab" data-toggle="tab">coding</a></li>
@@ -1080,26 +1081,12 @@
 					<div class="main-block__sub-padder tab-content text-left wow fadeInUp">
 
 						<!-- @CODING PANEL -->
+
 						<div class="row tab-pane active skills-list" id="skill-panel-1">
 							<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
-
-								<!-- SKILL TITLE -->
-								<h6 class="normal">html5</h6>
-
-								<!-- SKILL METER -->
-								<div class="skill-meter xs-padder">
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-								</div>
-
-							</div>
-							<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
-
-								<!-- SKILL TITLE -->
-								<h6 class="normal">css3</h6>
+								@foreach($skills as $skill)
+										<!-- SKILL TITLE -->
+								<h6 class="normal">{{$skill->name}}</h6>
 
 								<!-- SKILL METER -->
 								<div class="skill-meter xs-padder">
@@ -1109,69 +1096,86 @@
 									<div class="on"></div>
 									<div class="on"></div>
 								</div>
+								@endforeach
+
 
 							</div>
-							<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
+							{{--<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">--}}
 
-								<!-- SKILL TITLE -->
-								<h6 class="normal">javascript</h6>
+								{{--<!-- SKILL TITLE -->--}}
+								{{--<h6 class="normal">css3</h6>--}}
 
-								<!-- SKILL METER -->
-								<div class="skill-meter xs-padder">
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div></div>
-									<div></div>
-								</div>
+								{{--<!-- SKILL METER -->--}}
+								{{--<div class="skill-meter xs-padder">--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+								{{--</div>--}}
 
-							</div>
-							<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
+							{{--</div>--}}
+							{{--<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">--}}
 
-								<!-- SKILL TITLE -->
-								<h6 class="normal">php</h6>
+								{{--<!-- SKILL TITLE -->--}}
+								{{--<h6 class="normal">javascript</h6>--}}
 
-								<!-- SKILL METER -->
-								<div class="skill-meter xs-padder">
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div></div>
-								</div>
+								{{--<!-- SKILL METER -->--}}
+								{{--<div class="skill-meter xs-padder">--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div></div>--}}
+									{{--<div></div>--}}
+								{{--</div>--}}
 
-							</div>
-							<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
+							{{--</div>--}}
+							{{--<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">--}}
 
-								<!-- SKILL TITLE -->
-								<h6 class="normal">wordpress</h6>
+								{{--<!-- SKILL TITLE -->--}}
+								{{--<h6 class="normal">php</h6>--}}
 
-								<!-- SKILL METER -->
-								<div class="skill-meter xs-padder">
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div class="on"></div>
-									<div></div>
-								</div>
+								{{--<!-- SKILL METER -->--}}
+								{{--<div class="skill-meter xs-padder">--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div></div>--}}
+								{{--</div>--}}
 
-							</div>
-							<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
+							{{--</div>--}}
+							{{--<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">--}}
 
-								<!-- SKILL TITLE -->
-								<h6 class="normal">ruby</h6>
+								{{--<!-- SKILL TITLE -->--}}
+								{{--<h6 class="normal">wordpress</h6>--}}
 
-								<!-- SKILL METER -->
-								<div class="skill-meter xs-padder">
-									<div class="on"></div>
-									<div class="on"></div>
-									<div></div>
-									<div></div>
-									<div></div>
-								</div>
+								{{--<!-- SKILL METER -->--}}
+								{{--<div class="skill-meter xs-padder">--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div></div>--}}
+								{{--</div>--}}
 
-							</div>
-						</div>
+							{{--</div>--}}
+							{{--<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">--}}
+
+								{{--<!-- SKILL TITLE -->--}}
+								{{--<h6 class="normal">ruby</h6>--}}
+
+								{{--<!-- SKILL METER -->--}}
+								{{--<div class="skill-meter xs-padder">--}}
+									{{--<div class="on"></div>--}}
+									{{--<div class="on"></div>--}}
+									{{--<div></div>--}}
+									{{--<div></div>--}}
+									{{--<div></div>--}}
+								{{--</div>--}}
+
+							{{--</div>--}}
+						{{--</div>--}}
 
 						<!-- @DESIGN PANEL -->
 						<div class="row tab-pane skills-list" id="skill-panel-2">
