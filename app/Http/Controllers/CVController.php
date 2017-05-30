@@ -30,9 +30,20 @@ class CVController extends Controller
         //dd($user);
 
         //* AHMED CHANGES *
-        $skills = Skills::where('cv_id', $cv->cv_id)->get();
-
-        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet','skills'));
+        //$skills = Skills::where('cv_id', $cv->cv_id)->get();
+        $coding_skills = DB::table('skills')->where([
+            ['type', '=', 'CODING'],
+            ['cv_id', $cv->cv_id],
+        ])->get();
+        $design_skills = DB::table('skills')->where([
+            ['type', '=', 'DESIGN'],
+            ['cv_id', $cv->cv_id],
+        ])->get();
+        $lang_skills = DB::table('skills')->where([
+            ['type', '=', 'LANGUAGES'],
+            ['cv_id', $cv->cv_id],
+        ])->get();
+        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet','coding_skills','design_skills','lang_skills'));
     }
 
     public function newCv()
