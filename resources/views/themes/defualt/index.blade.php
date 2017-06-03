@@ -23,7 +23,7 @@
 	<!-- $PAGE FAVICON                             -->
 	<!-- ========================================= -->
 
-	<link rel="icon" type="image/png" href="media/images/favicon.png">
+	<link rel="icon" type="image/png" href="../public/media/images/favicon.png">
 
 	<!-- ========================================= -->
 	<!-- $STYLESHEETS                              -->
@@ -199,7 +199,7 @@
 
 
 					<!-- #HOME PERSONAL PHOTO -->
-					<div class="lg-rounded-box home__image-box" style="background-image: url('{{asset('media/images/'.$userDet['pic_url'])}}');background-size: cover;background-repeat: round">
+					<div class="lg-rounded-box home__image-box" style="background-image: url('{{asset('/media/images/'.$userDet['pic_url'])}}');background-size: cover;background-repeat: round">
 						{{--<img src="{{asset('media/images/'.$userDet['pic_url'])}}" class="img-responsive lg-rounded-box" alt="#">--}}
 						<button  class="btn btn-icon">
 							<i class="fa fa-pencil-square-o fa-2x " style="color: black;"  aria-hidden="true"></i>
@@ -368,7 +368,7 @@
 			<div class="col-lg-4 col-md-6 col-lg-push-4 text-center wow fadeInUp">
 				<div class="inline-block photo-column-inner">
 					<div class="xlg-rounded-box profile-image-holder center-block">
-						<img src="media/images/photo-4.jpg" class="img-responsive"  style="margin-top: 0;" alt="#">
+						<img src="{{asset('/media/images/'.$userDet['pic_url'])}}" class="img-responsive"  style="margin-top: 0;" alt="#">
 					</div>
 					<div class="md-padder">
 						<a href="media/newcv.pdf" class="btn btn-block btn--main-color">download resume</a>
@@ -1044,6 +1044,53 @@
 <!-- ========================================= -->
 <!-- $SKILLS SECTION                           -->
 <!-- ========================================= -->
+<?php
+function display_skills($type){?>
+
+<div class="row tab-pane active skills-list" id="skill-panel-1">
+	@for($i = 0;$i<count($type);$i++)
+		<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
+
+			<!-- SKILL TITLE -->
+			<h6 class="normal">{{$type[$i]->name}}</h6>
+
+			<!-- SKILL METER -->
+			<?php $meter = ($type[$i]->percent)/(20) ?>
+			<div class="skill-meter xs-padder">
+				@for($x = 0; $x < ceil($meter); $x++)
+					<div class="on"></div>
+				@endfor
+				@for($x = 0; $x < 5-ceil($meter); $x++)
+					<div></div>
+				@endfor
+			</div>
+			<?php $i = $i + 1 ?>
+		</div>
+		@if($i!=count($type))
+
+		<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
+
+			<!-- SKILL TITLE -->
+			<h6 class="normal">{{$type[$i]->name}}</h6>
+
+			<!-- SKILL METER -->
+			<?php $meter = ($type[$i]->percent)/(20) ?>
+			<div class="skill-meter xs-padder">
+				@for($x = 0; $x < ceil($meter); $x++)
+					<div class="on"></div>
+				@endfor
+				@for($x = 0; $x < 5-ceil($meter); $x++)
+					<div></div>
+				@endfor
+			</div>
+		</div>
+		@endif
+	@endfor
+</div>
+<?php } ?>
+
+
+
 
 <section id="skills" class="main-block">
 	<div class="container text-center">
@@ -1069,175 +1116,29 @@
 
 			<!-- #SKILLS TABS -->
 			<ul class="nav nav-tabs text-uppercase small bold inline-block tabs-list wow fadeInUp" role="tablist">
-				<li role="presentation" class="active"><a href="#skill-panel-1" role="tab" data-toggle="tab">coding</a></li>
-				<li role="presentation"><a href="#skill-panel-2" role="tab" data-toggle="tab">design</a></li>
-				<li role="presentation"><a href="#skill-panel-3" role="tab" data-toggle="tab">languages</a></li>
-				<li role="presentation"><a href="#skill-panel-4" role="tab" data-toggle="tab">knowlage</a></li>
-				<li role="presentation"><a href="#skill-panel-5" role="tab" data-toggle="tab">personal</a></li>
+				<li role="presentation" class="active"><a href="#skill-panel-1" role="tab" data-toggle="tab" style="width: 200px">PROFESSIONAL SKILLS</a></li>
+				<li role="presentation"><a href="#skill-panel-2" role="tab" data-toggle="tab" style="width: 200px">PERSONAL SKILLS</a></li>
+				<li role="presentation"><a href="#skill-panel-3" role="tab" data-toggle="tab" style="width: 200px">LANGUAGES</a></li>
 			</ul>
 
 			<!-- #SKILLS PANELS -->
 			<div class="main-block__sub-padder tab-content text-left wow fadeInUp">
 
-				<!-- @CODING PANEL -->
+				<!-- @PROFESSIONAL PANEL -->
+
 				<div class="row tab-pane active skills-list" id="skill-panel-1">
-					@foreach($coding_skills as $c_skill)
-					<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
-						<!-- SKILL TITLE -->
-						<h6 class="normal">{{$c_skill->name}}</h6>
-
-						<!-- SKILL METER -->
-						<?php $meter = ($c_skill->percent)/(20) ?>
-						<div class="skill-meter xs-padder">
-							@for($x = 0; $x < ceil($meter); $x++)
-								<div class="on"></div>
-							@endfor
-							@for($x = 0; $x < 5-ceil($meter); $x++)
-								<div></div>
-							@endfor
-						</div>
-					</div>
-				@endforeach
+					<?php display_skills($prof_skills); ?>
 				</div>
 
-				<!-- @DESIGN PANEL -->
-				<div class="row tab-pane skills-list" id="skill-panel-2">
-					@foreach($design_skills as $d_skill)
-						<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
-							<!-- SKILL TITLE -->
-							<h6 class="normal">{{$d_skill->name}}</h6>
-
-							<!-- SKILL METER -->
-							<?php $meter = ($d_skill->percent)/(20) ?>
-							<div class="skill-meter xs-padder">
-								@for($x = 0; $x < ceil($meter); $x++)
-									<div class="on"></div>
-								@endfor
-								@for($x = 0; $x < 5-ceil($meter); $x++)
-									<div></div>
-								@endfor
-							</div>
-						</div>
-					@endforeach
-				</div>
-				<!-- @LANGUAGES PANEL -->
-				<div class="row tab-pane skills-list" id="skill-panel-3">
-					<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
-
-						<!-- SKILL TITLE -->
-						<h6 class="normal">english</h6>
-
-						<!-- SKILL METER -->
-						<div class="skill-meter xs-padder">
-							<div class="on"></div>
-							<div class="on"></div>
-							<div class="on"></div>
-							<div></div>
-							<div></div>
-						</div>
-
-					</div>
-					<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
-
-						<!-- SKILL TITLE -->
-						<h6 class="normal">french</h6>
-
-						<!-- SKILL METER -->
-						<div class="skill-meter xs-padder">
-							<div class="on"></div>
-							<div class="on"></div>
-							<div class="on"></div>
-							<div></div>
-							<div></div>
-						</div>
-
-					</div>
-					<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
-
-						<!-- SKILL TITLE -->
-						<h6 class="normal">german</h6>
-
-						<!-- SKILL METER -->
-						<div class="skill-meter xs-padder">
-							<div class="on"></div>
-							<div class="on"></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-
-					</div>
-					<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
-
-						<!-- SKILL TITLE -->
-						<h6 class="normal">spanish</h6>
-
-						<!-- SKILL METER -->
-						<div class="skill-meter xs-padder">
-							<div class="on"></div>
-							<div class="on"></div>
-							<div></div>
-							<div></div>
-							<div></div>
-						</div>
-
-					</div>
-				</div>
-
-				<!-- @KNOWLAGE PANEL -->
-				<div class="row tab-pane skills-list text-capitalize" id="skill-panel-4">
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Google Analythics &amp; SEO</li>
-							<li>Instal and Configure</li>
-							<li>E-commerce Platform</li>
-							<li>Color theory knowledge</li>
-						</ul>
-					</div>
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Web Usability</li>
-							<li>Grid &amp; Layout</li>
-							<li>Photo manipulation skills</li>
-							<li>Digital Painting</li>
-						</ul>
-					</div>
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Photo Composition</li>
-							<li>Good sense of Tipography</li>
-							<li>Portrait Retouching</li>
-							<li>Video Editing</li>
-						</ul>
-					</div>
-				</div>
 
 				<!-- @PERSONAL PANEL -->
-				<div class="row tab-pane skills-list text-capitalize" id="skill-panel-5">
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Responsible</li>
-							<li>Diligence</li>
-							<li>Labour</li>
-							<li>Rigor</li>
-						</ul>
-					</div>
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Creative</li>
-							<li>Funny</li>
-							<li>Great Communicator</li>
-							<li>Flexible</li>
-						</ul>
-					</div>
-					<div class="col-md-4 col-sm-6 text-center">
-						<ul class="colored-bullets checked-list list-gutter-sm list-unstyled inline-block text-left">
-							<li>Personal integrity</li>
-							<li>Positive work ethic</li>
-							<li>Team oriented</li>
-							<li>Reliability</li>
-						</ul>
-					</div>
+				<div class="row tab-pane skills-list" id="skill-panel-2">
+					<?php display_skills($pers_skills); ?>
+				</div>
+
+				<!-- @LANGUAGES PANEL -->
+				<div class="row tab-pane skills-list text-capitalize" id="skill-panel-3">
+					<?php display_skills($lang_skills); ?>
 				</div>
 
 			</div>
