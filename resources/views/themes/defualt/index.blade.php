@@ -676,8 +676,11 @@
 									</div>
 
 									<!-- TIMELINE ITEM CONTENT -->
+
 									<div class="no-overflow timeline-item-info wow fadeInRight">
-										<h6 class="text-capitalize lh">bachelor degree of design</h6>
+										<h6 class="text-capitalize lh">
+
+										</h6>
 										<ul class="list-inline list-gutter-xs em serif text-capitalize sm-padder timeline-info-list">
 											<li>name of university</li>
 											<li>&#8226;</li>
@@ -692,7 +695,9 @@
 								
 								<!-- ITEM -->
 								<div class="clearfix timeline-item hidden">
-									
+								{!! Form::open(['url' => '/myCvs', 'method' => 'post']) !!}
+
+
 									<!-- TOOLTIP - BULLET - BOX -->
 									<div class="pull-left clearfix text-center">
 										
@@ -704,13 +709,19 @@
 												<span>
 													<i class="fa fa-clock-o normal"></i>
 												</span>
-												2000 - 2003
+												 <div class="inline-block v-middle" id="edu_date"></div>
 											</div><!--
 											--><div class="timeline-item-bullet inline-block v-middle"></div>
 
 										</div><!--
 										--><div class="timeline-box inline-block v-middle hidden-xs text-uppercase">
-											<span class="h3 light">A+</span>
+											<span class="">
+												<!--- Grade Field --->
+												<div class="form-group">
+												    {!! Form::select('grade', ['A+','A'], null, ['class' => 'form-control']) !!}
+												</div>
+
+											</span>
 											<small class="bold">grade</small>
 										</div>
 
@@ -718,17 +729,77 @@
 
 									<!-- TIMELINE ITEM CONTENT -->
 									<div class="no-overflow timeline-item-info">
-										<h6 class="text-capitalize lh">high school degree</h6>
+
+											<div class="row em serif">
+												<div class="col col-md-6">
+													<!--- From Field --->
+													<div class="form-group">
+													    {!! Form::label('from_date', 'From:') !!}
+														{!! Form::selectRange('from_date', 1900, 2018 , null , ['class' => 'form-control', 'id' => 'from_date']) !!}
+													</div>
+												</div>
+												<div class="col col-md-6">
+													<!--- To Field --->
+													<div class="form-group">
+														{!! Form::label('to_date', 'To:') !!}
+														{!! Form::selectRange('to_date', 1900, 2018 , null , ['class' => 'form-control', 'id' => 'to_date']) !!}
+													</div>
+												</div>
+												<div class="col col-md-6">
+													<!--- Degree title Field --->
+													<div class="form-group">
+														{!! Form::label('degree', 'Degree:') !!}
+														{!! Form::select('degree', ['Bachelor'],null, ['class' => 'form-control']) !!}
+													</div>
+												</div>
+												<div class="col col-md-6">
+													<!--- Major Field --->
+													<div class="form-group">
+														{!! Form::label('major', 'Major:') !!}
+														{!! Form::text('major', null, ['class' => 'form-control']) !!}
+													</div>
+												</div>
+											</div>
+
+
+
+
 										<ul class="list-inline list-gutter-xs em serif text-capitalize sm-padder timeline-info-list">
-											<li>name of school</li>
+											<li>
+												<!--- University Field --->
+												<div class="form-group">
+												    {!! Form::label('university', 'University:') !!}
+												    {!! Form::text('university', null, ['class' => 'form-control']) !!}
+												</div>
+
+											</li>
 											<li>&#8226;</li>
-											<li>USA</li>
+											<li>
+												<!--- Country Field --->
+												<div class="form-group">
+												    {!! Form::label('country', 'Country:') !!}
+												    {!! Form::text('country', null, ['class' => 'form-control']) !!}
+												</div>
+
+											</li>
 										</ul>
 										<p class="padder">
-											Coordinates for abs positioning use the closest positioned parent box of the positioned element. So assuming that your div creating the corner(s) has no parent elements that are rel or abs positioned.
+											<!--- Description Field --->
+											<div class="form-group">
+											    {!! Form::label('des', 'Description:') !!}
+											    {!! Form::textarea('des', null, ['class' => 'form-control']) !!}
+											</div>
 										</p>
+										<div class="row">
+											<div class="col-md-6">
+												{!! Form::submit('Submit', ['class' => 'form-control btn btn-success']) !!}
+											</div>
+											<div class="col-md-6">
+												<button type="reset" class="btn btn-default">Cancel</button>
+											</div>
+										</div>
 									</div>
-
+									{!! Form::close() !!}
 								</div>
 
 							</div>

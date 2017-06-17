@@ -5,49 +5,49 @@ jQuery(document).ready
 (
     function ($)
     {
+        $('#from_date').on('change',function () {
+            //window.alert('dsdsd'+ $('#from_date').val());
+            $('#edu_date').html($('#from_date').val() +' - ' + $('#to_date').val());
+        });
+        $('#to_date').on('change',function () {
+            //window.alert('dsdsd'+ $('#from_date').val());
+            $('#edu_date').html($('#from_date').val() +' - ' + $('#to_date').val());
+        });
+
         $('#newEdu').on('click', function () {
             bootbox.form({
                 title: 'Add New Education',
                 fields: {
-                    name: {
-                        label: 'Name',
-                        value: 'John Connor',
+                    major: {
+                        label: 'major',
                         type:  'text'
                     },
-                    email: {
-                        label: 'E-mail',
-                        type:  'email',
-                        value: 'johnconnor@skynet.com'
+                    degree: {
+                        label: 'degree',
+                        type:  'text',
+
                     },
-                    type: {
-                        label: 'Type',
-                        type:  'select',
-                        options: [
-                            {value: 1, text: 'Human'},
-                            {value: 2, text: 'Robot'}
-                        ]
+                    from_date: {
+                        label: 'from',
+                        type:  'date'
                     },
-                    alive: {
-                        label: 'Is alive',
-                        type: 'checkbox',
-                        value: true
+                    to_date: {
+                        label: 'to',
+                        type:  'date'
                     },
-                    loves: {
-                        label: 'Loves',
-                        type: 'checkbox',
-                        value: ['bike','mom','vg'],
-                        options: [
-                            {value: 'bike', text: 'Motorbike'},
-                            {value: 'mom', text: 'His mom'},
-                            {value: 'vg', text: 'Video games'},
-                            {value: 'kill', text: 'Killing people'}
-                        ]
+                    university: {
+                        label: 'university',
+                        type: 'text'
                     },
-                    passwd: {
-                        label: 'Password',
-                        type: 'password'
+                    city: {
+                        label: 'City',
+                        type: 'dropdown'
                     },
-                    desc: {
+                    country: {
+                        label: 'country',
+                        type: 'dropdown'
+                    },
+                    des: {
                         label: 'Description',
                         type: 'textarea'
                     }
