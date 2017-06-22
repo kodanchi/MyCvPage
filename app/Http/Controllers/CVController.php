@@ -43,7 +43,11 @@ class CVController extends Controller
             ['type', '=', 'LANGUAGES'],
             ['cv_id', $cv->cv_id],
         ])->get();
-        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet','prof_skills','pers_skills','lang_skills'));
+        $hobbies_bg = DB::table('custom')->where([
+            ['name', '=', 'Hobbies_BG'],
+            ['cv_id', $cv->cv_id],
+        ])->get()[0];
+        return view('themes.'.$theme->theme_name.'.index',compact('cv','userDet','prof_skills','pers_skills','lang_skills','hobbies_bg'));
     }
 
     public function newCv()
@@ -61,5 +65,9 @@ class CVController extends Controller
         Cvs::create($request->all());
         return redirect(url('/mycvs'));
     }
+
+    /* AHMED's CHANGES
+       CREATING A FUNCTION FOR TESTING AJAX WITH SKILLS*/
+
 
 }

@@ -29,6 +29,53 @@
 	<!-- $STYLESHEETS                              -->
 	<!-- ========================================= -->
 
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+	{{--AHMED's CHANGES ... MAKING JS CODE FOR EDITING SKILLS DATA--}}
+	<script type="text/javascript">
+		$(document).on('click', '.edit-modal', function(){
+			$('#footer_action_button').text(" UPDATE");
+			$('#footer_action_button').addClass('glyphicon-check');
+			$('#footer_action_button').removeClass("glyphicon-trash");
+			$('.actionBtn').addClass('btn-success');
+			$('.actionBtn').removeClass('btn-danger');
+			$('.actionBtn').addClass('edit');
+			$('.modal-title').text('Edit');
+			$('.deleteContent').hide();
+			$('.form-horizontal').show();
+			$('#fid').val($(this).data('id'));
+			$('#t').val($(this).data('name'));
+			$('#d').val($(this).data('percentage'));
+			$('#myModal').modal('show');
+		});
+		$('.modal-footer').on('click', '.edit', function(){
+			$.ajax({
+				type: 'post',
+				url: '/editItem',
+				data: {
+					'_token': $('input[name=_token]').val(),
+					'id': $("#fid").val(),
+					'name': $('#t').val(),
+					'percentage': $('#d').val()
+				},
+				success: function(data){
+					$('#item' + data.id).replaceWith()
+				}
+			})
+		})
+
+	</script>
+
+
+
+
+
+
+
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
@@ -445,7 +492,7 @@
 <!-- $HOBBIES SECTION                          -->
 <!-- ========================================= -->
 
-<section id="hobbies" class="secondary-block secondary-block-spacer bg-image" style="background-image: url(media/images/backgrounds/sp1.jpg)" data-stellar-background-ratio="0.5">
+<section id="hobbies" class="secondary-block secondary-block-spacer bg-image" style="background-image: url('{{asset('/media/images/backgrounds/'.$hobbies_bg->des)}}')" data-stellar-background-ratio="0.5">
 
 	<!-- #OVERLAY -->
 	<div class="overlay pattern-overlay"></div>
@@ -480,6 +527,7 @@
 
 				</li>
 				<li class="lg-rounded-box wow fadeInUp" data-wow-delay="0.3s">
+
 
 					<!-- HOBBY -->
 					<div class="inline-block">
@@ -533,7 +581,7 @@
 					</div>
 
 				</li>
-				<li class="lg-rounded-box wow fadeInUp" data-wow-delay="1.2s">
+				<li class="lg-rounded-box wow fadeInUp" data-wow-delay="5.2s">
 
 					<!-- HOBBY -->
 					<div class="inline-block">
@@ -1049,7 +1097,7 @@ function display_skills($type){?>
 
 <div class="row tab-pane active skills-list" id="skill-panel-1">
 	@for($i = 0;$i<count($type);$i++)
-		<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase">
+		<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-2 col-md-offset-1 text-uppercase" id="item{{$type[$i]->id}}">
 
 			<!-- SKILL TITLE -->
 			<h6 class="normal">{{$type[$i]->name}}</h6>
@@ -1064,11 +1112,18 @@ function display_skills($type){?>
 					<div></div>
 				@endfor
 			</div>
-			<?php $i = $i + 1 ?>
+
+			<button class="edit-modal btn btn-primary" data-id="{{$type[$i]->id}}" data-name="{{$type[$i]->name}}" data-percentage="{{$type[$i]->percent}}">
+				<span class="glyphicon glyphicon-edit"></span> EDIT
+			</button>
+			<button class="delete-modal btn btn-danger" data-id="{{$type[$i]->id}}" data-name="{{$type[$i]->name}}" data-percentage="{{$type[$i]->percent}}">
+				<span class="glyphicon glyphicon-trash"></span> DELETE
+			</button>
 		</div>
+		<?php $i = $i + 1 ?>
 		@if($i!=count($type))
 
-		<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase">
+		<div class="col-lg-4 col-md-5 col-sm-6 text-uppercase" id="item{{$type[$i]->id}}">
 
 			<!-- SKILL TITLE -->
 			<h6 class="normal">{{$type[$i]->name}}</h6>
@@ -1083,6 +1138,12 @@ function display_skills($type){?>
 					<div></div>
 				@endfor
 			</div>
+			<button  class="edit-modal btn btn-primary" data-id="{{$type[$i]->id}}" data-name="{{$type[$i]->name}}" data-percentage="{{$type[$i]->percent}}">
+				<span class="glyphicon glyphicon-edit"></span> EDIT
+			</button>
+			<button class="delete-modal btn btn-danger" data-id="{{$type[$i]->id}}" data-name="{{$type[$i]->name}}" data-percentage="{{$type[$i]->percent}}">
+				<span class="glyphicon glyphicon-trash"></span> DELETE
+				</button>
 		</div>
 		@endif
 	@endfor
@@ -1093,6 +1154,7 @@ function display_skills($type){?>
 
 
 <section id="skills" class="main-block">
+	{{ csrf_field() }}
 	<div class="container text-center">
 
 		<!-- #SKILLS TITLE -->
@@ -1128,6 +1190,7 @@ function display_skills($type){?>
 
 				<div class="row tab-pane active skills-list" id="skill-panel-1">
 					<?php display_skills($prof_skills); ?>
+
 				</div>
 
 
@@ -2242,6 +2305,56 @@ function display_skills($type){?>
 		</ul>
 
 	</div>
+
+	{{--AHMED'S CHANGES ... CREATING THE MODAL FOR AJAX TESTING--}}
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="position: absolute; left: 50%; margin-left: -312px;height: 500px;top: 50%; margin-top: -250px;" >
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="id">ID: </label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="fid" disabled>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="name">Skill Name:</label>
+							<div class="col-sm-10">
+								<input type="name" class="form-control" id="t">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="percentage">Percentage:</label>
+							<div class="col-sm-10">
+								<input type="name" class="form-control" id="d">
+							</div>
+						</div>
+					</form>
+					<div class="deleteContent">
+						Are you Sure you want to delete <span class="title"></span> ?
+						<span class="hidden id"></span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn actionBtn" data-dismiss="modal">
+							<span id="footer_action_button" class="glyphicon"></span>
+						</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> Close
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
 
 	<!-- #COPYRIGHT -->
 	<div class="xlg-padder text-capitalize">

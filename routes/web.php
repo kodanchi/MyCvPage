@@ -27,5 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mycvs/{id}/preview', 'CVController@viewCv');
 
     Route::post('/mycvs', 'CVController@createCv');
+    Route::post('/mycvs', 'CVController@createCv');
 });
 
